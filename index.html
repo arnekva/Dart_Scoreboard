@@ -7,27 +7,20 @@
 
 <link rel="stylesheet" href="style.css">
 <style>
-.score-container{
-  float:left;
-  margin-left: 50px;
-}
-.addNewPlayer{
-  margin-left:100px;
 
-}
 </style>
 </head>
 
 <body>
 <div class="container">
-
+  <input type="submit" id="addNewPlayer" class="add-player" value="Legg til ny spiller" onclick="addNewPlayer()"/>
   <div class="game-container">
     <div class="p1 score-container" id="duplicate-container">
       <input type="text" id="input-name-p1" placeholder="Sett navn for Spiller 1" />
       <input type="submit" id="namep1" value="Lagre" onclick="changeName(this.id)"/>
       <h2 class="header" id="headerp1">Spiller 1</h2>
 
-      <p id="p1">0</p>
+      Poeng <p id="p1">0</p>
       <input type="text" id="inputp1" placeholder="Verdi" name="player1" class="Kbutton player1">
       <input type="submit" id="submitp1" value="Lagre" onclick="updatescore(this.id)"/>
       <div class="score-list" id="score-listp1">
@@ -39,7 +32,7 @@
       <input type="text" id="input-name-p2" placeholder="Sett navn for Spiller 1" />
       <input type="submit" id="namep2" value="Lagre" onclick="changeName(this.id)"/>
       <h2 class="header" id="headerp2">Spiller 2</h2>
-      <p id="p2">0</p>
+      Poeng <p id="p2">0</p>
         <input type="text" id="inputp2" placeholder="Verdi" name="player2" class="Kbutton player1">
         <input type="submit" id="submitp2" value="Lagre" onclick="updatescore(this.id)"/>
         <div class="score-list" id="score-listp2">
@@ -48,8 +41,11 @@
     </div>
 
   </div>
-    <input type="submit" id="addNewPlayer" class="add-player" value="Legg til ny spiller" onclick="addNewPlayer()"/>
+
 </div>
+<footer class="footer">
+<p>Dart Scoreboard v0.2</p>
+</footer>
 
 
   <script src="game.js"></script>
