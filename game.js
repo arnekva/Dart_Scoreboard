@@ -1,17 +1,31 @@
 let score1 = document.getElementById('scorep1')
 
-
-function updatescore(id){
-let playerId = id.substr(6)
+setUpListener("p1")
+setUpListener("p2")
+function setUpListener(id){
+  const node = document.getElementById("input"+id)
+  node.addEventListener("keyup", function(event) {
+    if (event.key === "Enter") {
+      node.blur()
+      let extra = "a"
+      updatescore(this.id, extra)
+    }
+});
+}
+function updatescore(id, extra){
+  let playerId;
+  if(extra !== undefined){
+    playerId = id.substr(5)
+  }else{
+    playerId = id.substr(6)
+  }
 let scoreToBeAdded = document.getElementById("input"+playerId).value - 0
 let currentScore = document.getElementById(playerId).innerText - 0
 let totalscore = scoreToBeAdded + currentScore
 
 if(totalscore !== null && !Number.isNaN(totalscore)&& totalscore !== undefined){
-  console.log(totalscore)
-document.getElementById(playerId).innerText = totalscore + ""
-
-appendScore(playerId, scoreToBeAdded)
+  document.getElementById(playerId).innerText = totalscore + ""
+  appendScore(playerId, scoreToBeAdded)
 }else{
   alert("Du har tastet inn et ugyldig tall")
 }
@@ -24,8 +38,7 @@ function appendScore(playerId, score){
 console.log("Player ID was: " + playerId)
 let list = document.getElementById("score-list"+playerId)
 let node = document.createElement("p")
-
-node.className = "score-element-"+playerId
+node.className = "score-element "
 incrementRound(playerId)
 node.innerText =  "Runde " + currentRound.get(playerId) +": " +score
 let previousNode;
@@ -35,14 +48,28 @@ let previousNode;
 if(previousNodeMap.get(playerId) == null || previousNodeMap.get(playerId) == undefined){
   previousNode = document.getElementById('before-for'+playerId)
 }else{
-  console.log("ELSE")
  previousNode = previousNodeMap.get(playerId)
 }
 
 list.insertBefore(node,previousNode)
 updatePreviousNode(playerId, node)
-
+clearFieldAndFocusNext(playerId)
 }
+
+function clearFieldAndFocusNext(playerId){
+  let number = playerId.substr(1)-0
+
+  let field = document.getElementById('inputp'+number)
+  field.value = ""
+  num = ++number
+  let max =  howManyPlayers();
+  if(num-1 === max){
+    num = 1;
+    console.log("max was reached")
+  }
+  document.getElementById('inputp'+num).focus()
+}
+
 function incrementRound(playerId){
   let round = currentRound.get(playerId)
   if(round == null){
@@ -98,7 +125,7 @@ function addNewPlayer(){
   let before = document.createElement('div')
   before.id = "before-forp"+number
   scoreList.appendChild(before)
-  console.log("WHAAAAAT" +document.getElementById('before-forp'+number))
+  setUpListener("p"+number)
 }
 
 function updateIdOfChildElements(mainNode, number){
@@ -111,6 +138,7 @@ function updateIdOfChildElements(mainNode, number){
   list[7].id = "p"+number;
   list[7].innerText = 0 + ""
   list[9].id = "inputp"+number;
+  list[9].value = ""
   list[11].id = "submitp"+number;
   list[13].id = "score-listp"+number;
   list[13].textContent = "";
