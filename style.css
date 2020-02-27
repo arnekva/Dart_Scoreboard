@@ -10,17 +10,29 @@ html, body {
 width:100%;
 
 }
+.input-name{
+  width:140px;
+}
+@media all and (device-width: 768px) and (device-height: 1024px) and (orientation:portrait) {
+  .ipad-portrait { color: red; } /* your css rules for ipad portrait */
+}
+@media all and (device-width: 1024px) and (device-height: 768px) and (orientation:landscape) {
+  .score-container{
+    width:100px;
+  }
+}
 .score-container{
   float:none;
-  margin-left: 50px;
-  margin-top:50px;
+  margin-left: 35px;
+  margin-top:40px;
   display:inline-block;
    position: relative;
    height:300px;
 max-height:300px;
+width:210px;
 overflow: auto;
   white-space: nowrap;
-  border:5px solid #424244;
+  border:3px solid #424244;
   padding:30px;
   text-align: center;
 }
@@ -70,4 +82,27 @@ display: flex;
 .footer p{
   margin: auto;
   text-align: center;
+}
+@media all and (device-width: 768px) and (device-height: 1024px) and (orientation:portrait) {
+  .ipad-portrait { color: red; } /* your css rules for ipad portrait */
+}
+@media all and (device-width: 1024px) and (device-height: 768px) and (orientation:landscape) {
+  .score-container{
+    float:none;
+    margin-left: 5px;
+    margin-top:20px;
+    display:inline-block;
+     position: relative;
+     height:300px;
+  max-height:300px;
+  width:100px;
+  overflow: auto;
+    white-space: nowrap;
+    border:2px solid #424244;
+    padding:30px;
+    text-align: center;
+  }
+  .input-name{
+    width:60px;
+  }
 }

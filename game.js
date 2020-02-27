@@ -1,7 +1,6 @@
 let score1 = document.getElementById('scorep1')
 
 setUpListener("p1")
-setUpListener("p2")
 function setUpListener(id){
   const node = document.getElementById("input"+id)
   node.addEventListener("keyup", function(event) {
@@ -28,6 +27,7 @@ if(totalscore !== null && !Number.isNaN(totalscore)&& totalscore !== undefined){
   appendScore(playerId, scoreToBeAdded)
 }else{
   alert("Du har tastet inn et ugyldig tall")
+  clearFieldAndFocusSame(playerId)
 }
 }
 let previousNodeMap = new Map()
@@ -55,12 +55,18 @@ list.insertBefore(node,previousNode)
 updatePreviousNode(playerId, node)
 clearFieldAndFocusNext(playerId)
 }
-
+function clearFieldAndFocusSame(playerId){
+  let field = document.getElementById('input'+playerId)
+  field.value = ""
+  field.focus()
+  field.style.backgroundColor = "#ffc9c9"
+}
 function clearFieldAndFocusNext(playerId){
   let number = playerId.substr(1)-0
 
   let field = document.getElementById('inputp'+number)
   field.value = ""
+  field.style.backgroundColor = "white"
   num = ++number
   let max =  howManyPlayers();
   if(num-1 === max){
