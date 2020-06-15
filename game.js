@@ -1,6 +1,7 @@
 let score1 = document.getElementById('scorep1')
 let gametype = "normal"
 setUpListener("p1")
+
 function setUpListener(id){
   const node = document.getElementById("input"+id)
   node.addEventListener("keyup", function(event) {
@@ -11,14 +12,21 @@ function setUpListener(id){
     }
 });
 }
+function setUpFirst(){
+  let el = document.getElementById("headerp1")
+  createAndAppendNumberBoxes(el);
+}
+setUpFirst()
 function updatescore(id, extra){
+  console.log("ID: " + id);
   let playerId;
   if(extra !== undefined){
     playerId = id.substr(5)
   }else{
     playerId = id.substr(6)
   }
-let scoreToBeAdded = document.getElementById("input"+playerId).value - 0
+let scoreToBeAdded = document.getElementById("input"+playerId).value -0
+
 let currentScore = document.getElementById(playerId).innerText - 0
 let totalscore = 0
 if(gametype==="normal"){
@@ -108,20 +116,7 @@ function howManyPlayers(){
   return document.getElementsByClassName('score-container').length
 }
 function changeScoring(){
-  let score = "0"
-  if(gametype==="normal"){
-  gametype = "maxSum"
-  score = prompt("Please type the sum you want to count down from")
-}else{
-  gametype = "normal"
-}
-for(let i = 1; i<document.getElementsByClassName('input-name').length;i++){
-  if(gametype === "normal"){
-  document.getElementById('p'+i).innerText = score
-}else{
-  document.getElementById('p'+i).innerText = score
-}
-}
+  alert("Ikke implementert")
 }
 
 function addNewPlayer(){
@@ -131,27 +126,35 @@ function addNewPlayer(){
 
   let container = document.getElementById('duplicate-container')
   let newContainer = container.cloneNode(true)
+  console.log("hellooooo");
+  console.log(newContainer.childNodes);
+  newContainer.removeChild(newContainer.childNodes[6])
   newContainer.className = "p"+number + " score-container"
+
   //newContainer.setAttribute('id', "p"+number)
   let mainContainer = document.getElementsByClassName('game-container')[0]
   updateIdOfChildElements(newContainer, number)
   mainContainer.appendChild(newContainer)
   let scoreList = document.getElementById("score-listp" + number)
   let before = document.createElement('div')
-  before.id = "before-forp"+number
+  before.id = "before-forp"+number;
+  console.log(scoreList);
   scoreList.appendChild(before)
   setUpListener("p"+number)
+  let ihd = document.getElementById("headerp"+number)
+  createAndAppendNumberBoxes(ihd)
 }
 
 function updateIdOfChildElements(mainNode, number){
 
   let list = mainNode.childNodes
+  console.log(list);
   list[1].id = "input-name-p"+number;
   list[3].id = "namep"+number;
   list[5].id = "headerp"+number;
   list[5].innerText = "Spiller "+number;
   list[7].id = "p"+number;
-  //list[7].innerText = 0 + ""
+  list[7].innerText = 0 + ""
   list[9].id = "inputp"+number;
   list[9].value = ""
   list[11].id = "submitp"+number;
@@ -159,4 +162,41 @@ function updateIdOfChildElements(mainNode, number){
   list[13].textContent = "";
   //list[14].id = "p"+number+"heading";
 
+}
+
+function createAndAppendNumberBoxes(parent){
+
+let cont = document.createElement('div')
+cont.classList.add("number-container")
+  for(let n = 20; n>0; n--){
+    let box = document.createElement('div')
+    box.classList.add("box-section")
+    let hd = document.createElement('h4')
+    hd.classList.add("roundHeader")
+    hd.innerText = n
+
+    for(let i = 0; i<3;i++){
+      let button = document.createElement('input')
+      button.setAttribute("type", "button");
+      button.classList.add("box");
+      button.onclick = function(){
+        if(this.classList.contains("green")){
+        this.classList.remove("green")
+      }else{
+        this.classList.add("green")
+      }
+      }
+      box.appendChild(button)
+    }
+    box.appendChild(hd)
+    cont.appendChild(box);
+  }
+  insertAfter(cont, parent)
+  //parent.appendChild(cont)
+
+
+
+}
+function insertAfter(newNode, referenceNode) {
+    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
 }
